@@ -7,12 +7,23 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 use App\Models\Project;
+use App\Models\User;
 
 class ProjectsTest extends TestCase
 {
 
     use WithFaker, RefreshDatabase;
 
+     /** @test */
+    public function test_only_authenticated_users_can_create_projects()
+    {
+
+        //$this->withoutExceptionHandling();
+
+        $attributes = Project::factory()->raw();
+
+        $this->post('/projects', $attributes)->assertRedirect('login');
+    }
 
     /** @test */
 
@@ -20,6 +31,8 @@ class ProjectsTest extends TestCase
     {
 
         $this->withoutExceptionHandling();
+
+        $this->actingAs(User::factory()->create());
 
         $attributes = [
             'title' => $this->faker->sentence,
@@ -54,6 +67,8 @@ class ProjectsTest extends TestCase
     public function test_project_requires_a_title()
     {
 
+        $this->actingAs(User::factory()->create());
+
         $attributes = Project::factory()->raw(['title' => '']);
 
         $this->post('/projects', $attributes)->assertSessionHasErrors('title');
@@ -62,6 +77,7 @@ class ProjectsTest extends TestCase
     /** @test */
     public function test_project_requires_a_description()
     {
+        $this->actingAs(User::factory()->create());
 
         $attributes = Project::factory()->raw(['description' => '']);
 
