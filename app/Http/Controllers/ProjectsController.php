@@ -20,10 +20,14 @@ class ProjectsController extends Controller
         if (auth()->user()->isNot($project->owner)) {
             abort(403);
         }
-        
+
         return view('projects.show', compact('project'));
     }
 
+    public function create()
+    {
+        return view('projects.create');
+    }
 
     public function store()
     {
