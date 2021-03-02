@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-</head>
-<body>
+@extends('layouts.app')
 
-<form method="POST" action="{{ url('/projects')}}"class="container" style="padding-top: 40px">
+@section('content')
+
+<form method="POST" action="{{ url('/projects')}}">
     @csrf
 
     <h1 class="heading">Create a Project</h1>
@@ -30,9 +26,8 @@
     <div class="field">
         <div class="control">
             <button type="submit" class="button is-link">Create Project</button>
+            <a href="/projects">Cancel</a>
         </div>
     </div>
 </form>
-
-</body>
-</html>
+@endsection
