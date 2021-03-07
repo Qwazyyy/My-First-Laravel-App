@@ -1,6 +1,10 @@
 
 @tailwind base;
 @tailwind components;
+
+.button {
+    @apply .bg-blue .no-underline;
+}
 @tailwind utilities;
 
 @tailwind preflight;
