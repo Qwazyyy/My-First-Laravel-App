@@ -2,11 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
 
 class TaskFactory extends Factory
 {
+    use RefreshDatabase;
     /**
      * The name of the factory's corresponding model.
      *
@@ -22,7 +26,10 @@ class TaskFactory extends Factory
     public function definition()
     {
         return [
-            'body' => $this->faker->sentence
+            'body' => $this->faker->sentence,
+            'project_id' => function () {
+                return Project::factory()->create()->id;
+            }
         ];
     }
 }

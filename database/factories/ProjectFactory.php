@@ -5,10 +5,6 @@ namespace Database\Factories;
 use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-//use Faker\Generator as Faker;
-
-use WithFaker;
-
 class ProjectFactory extends Factory
 {
     /**
@@ -26,7 +22,7 @@ class ProjectFactory extends Factory
     public function definition()
     {
         return [
-            'title' =>$this->faker->title(4),
+            'title' => $this->faker->sentence,
             'description' => $this->faker->sentence(4),
             'owner_id' => function () {
                 return \App\Models\User::factory()->create()->id;
